@@ -10,5 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CompensationRepository extends MongoRepository<Compensation, String> {
+
+    @Query("{'employee.employeeId' : ?0}")
     List<Compensation> findByEmployeeId(String employeeId);
 }

@@ -7,5 +7,5 @@ public interface EmployeeService {
     Employee create(Employee employee);
     Employee read(String id);
     Employee update(Employee employee);
-    ReportingStructure getReports(String id);
+    ReportingStructure getReportingStructure(String id);
 }

@@ -49,19 +49,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ReportingStructure getReports(String employeeId) {
+    public ReportingStructure getReportingStructure(String employeeId) {
+        LOG.debug("Retrieving reporting structure for employeeId [{}]", employeeId);
+
         Employee rootEmployee = employeeRepository.findByEmployeeId(employeeId);
-        return new ReportingStructure(rootEmployee, traverseTree(rootEmployee)-1);
+
+        //Subtract 1 to exclude the root employee from being counted in the number of reports
+        return new ReportingStructure(rootEmployee, traverseReportTree(rootEmployee) - 1);
     }
 
-    public int traverseTree(Employee employee){
+    /**
+     * Traverses the Employee report structure (tree) and returns total number of employees given a root employee
+     * @param employee Root employee
+     * @return total number of employees including the root employee
+     */
+    private int traverseReportTree(Employee employee){
         if (employee.getDirectReports() == null) {
             return 1;
         }
         int sum = 0;
         for (Employee e:employee.getDirectReports()) {
-            sum += traverseTree(read(e.getEmployeeId()));
+            sum += traverseReportTree(read(e.getEmployeeId()));
         }
-        return sum+1;
+        return sum + 1;
     }
 }
