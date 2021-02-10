@@ -1,9 +1,7 @@
 package com.mindex.challenge.data;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Employee {

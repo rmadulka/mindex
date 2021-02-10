@@ -1,6 +1,7 @@
 package com.mindex.challenge.data;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.Date;
 
@@ -8,7 +9,7 @@ public class Compensation {
 
     @Id
     private String cid;
-
+    @DBRef
     private Employee employee;
     private int salary;
     private Date effectiveDate;

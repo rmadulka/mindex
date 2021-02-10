@@ -31,7 +31,7 @@ public class CompensationServiceImplTest {
 
     @Before
     public void setup() {
-        compensationUrl = "http://localhost:" + port + "/compensation/{id}";
+        compensationUrl = "http://localhost:" + port + "/compensation/{employeeId}";
     }
 
     @Test
@@ -56,7 +56,6 @@ public class CompensationServiceImplTest {
         assertEquals(1, readCompensations.length);
         assertEquals(createdCompensation.getEmployee().getEmployeeId(), readCompensations[0].getEmployee().getEmployeeId());
         assertCompensationEquivalence(readCompensations[0], createdCompensation);
-
     }
 
     private static void assertCompensationEquivalence(Compensation expected, Compensation actual) {

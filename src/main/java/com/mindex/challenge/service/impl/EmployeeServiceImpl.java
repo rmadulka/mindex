@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -60,6 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * Traverses the Employee report structure (tree) and returns total number of employees given a root employee
+     * Assumes that the reporting structure is a tree (no node may report to two parents)
      * @param employee Root employee
      * @return total number of employees including the root employee
      */
@@ -68,8 +71,15 @@ public class EmployeeServiceImpl implements EmployeeService {
             return 1;
         }
         int sum = 0;
-        for (Employee e:employee.getDirectReports()) {
-            sum += traverseReportTree(read(e.getEmployeeId()));
+        List<Employee> directReports = employee.getDirectReports();
+        for (int i = 0; i < directReports.size(); i++) {
+
+            //Because an employee's direct reports only hold employeeIds, we need to read the DB
+            //for the complete Employee object. We also need to wire the direct reports to the Employee
+            //object in order to return the fully filled out report
+            Employee childEmployee = read(directReports.get(i).getEmployeeId());
+            directReports.set(i, childEmployee);
+            sum += traverseReportTree(childEmployee);
         }
         return sum + 1;
     }

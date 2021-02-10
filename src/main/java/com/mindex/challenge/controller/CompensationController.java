@@ -21,20 +21,20 @@ public class CompensationController {
     @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping("/compensation/{id}")
-    public Compensation create(@RequestBody Compensation compensation, @PathVariable String id) {
-        LOG.debug("Received compensation create request for employee id [{}]", id);
+    @PostMapping("/compensation/{employeeId}")
+    public Compensation create(@RequestBody Compensation compensation, @PathVariable String employeeId) {
+        LOG.debug("Received compensation create request for employee id [{}]", employeeId);
 
-        Employee requestedEmployee = employeeService.read(id);
+        Employee requestedEmployee = employeeService.read(employeeId);
 
         return compensationService.create(compensation, requestedEmployee);
     }
 
-    @GetMapping("/compensation/{id}")
-    public List<Compensation> read(@PathVariable String id) {
-        LOG.debug("Received compensation read request for employee id [{}]", id);
+    @GetMapping("/compensation/{employeeId}")
+    public List<Compensation> read(@PathVariable String employeeId) {
+        LOG.debug("Received compensation read request for employee id [{}]", employeeId);
 
-        return compensationService.read(id);
+        return compensationService.read(employeeId);
     }
 
 }
