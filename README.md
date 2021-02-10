@@ -84,3 +84,70 @@ Compensation from the persistence layer.
 
 ## Delivery
 Please upload your results to a publicly accessible Git repo. Free ones are provided by Github and Bitbucket.
+
+## Additions
+
+### Types
+Then following data types were added 
+
+####ReportingStructure
+```json
+{
+  "type":"ReportingStructure",
+  "properties": {
+    "employee": {
+      "type": "Employee"
+    },
+    "numReports": {
+      "type": "int"
+    }
+  }
+}
+```
+
+####Compensation
+```json
+{
+  "type":"Compensation",
+  "properties": {
+    "cid": {
+      "type": "string"
+    },
+    "employee": {
+      "type": "Employee"
+    },
+    "salary": {
+      "type": "int"
+    },
+    "effectiveDate": {
+      "type": "Date"
+    }
+  }
+}
+```
+
+
+### Endpoints
+The following endpoints were added:
+
+```
+Task 1
+
+* READ
+    * HTTP Method: GET
+    * URL: localhost:8080/employee/reports/{id}
+    * RESPONSE: ReportingStructure
+
+
+Task 2
+
+* CREATE
+    * HTTP Method: POST 
+    * URL: localhost:8080/compensation/{employeeId}
+    * PAYLOAD: Compensation
+    * RESPONSE: Compensation
+* READ
+    * HTTP Method: GET 
+    * URL: localhost:8080/compensation/{employeeId}
+    * RESPONSE: Compensation
+```

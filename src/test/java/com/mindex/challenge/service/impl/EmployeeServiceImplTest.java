@@ -1,6 +1,7 @@
 package com.mindex.challenge.service.impl;
 
 import com.mindex.challenge.data.Employee;
+import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +26,8 @@ public class EmployeeServiceImplTest {
     private String employeeUrl;
     private String employeeIdUrl;
 
+    private String employeeReportUrl;
+
     @Autowired
     private EmployeeService employeeService;
 
@@ -38,6 +41,8 @@ public class EmployeeServiceImplTest {
     public void setup() {
         employeeUrl = "http://localhost:" + port + "/employee";
         employeeIdUrl = "http://localhost:" + port + "/employee/{id}";
+
+        employeeReportUrl = "http://localhost:" + port + "/employee/report/{id}";
     }
 
     @Test
@@ -82,5 +87,12 @@ public class EmployeeServiceImplTest {
         assertEquals(expected.getLastName(), actual.getLastName());
         assertEquals(expected.getDepartment(), actual.getDepartment());
         assertEquals(expected.getPosition(), actual.getPosition());
+    }
+
+    @Test
+    public void testReadReportStructure() {
+        ReportingStructure actual = employeeService.getReportingStructure("16a596ae-edd3-4847-99fe-c4518e82c86f");
+        //John should have 4 reports
+        assertEquals(4, actual.getNumReports());
     }
 }
